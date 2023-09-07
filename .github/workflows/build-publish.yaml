@@ -52,3 +52,6 @@ jobs:
 
       - name: Publish Docker Image
         run: docker push ${{ env.DOCKERHUB_USERNAME }}/users:${{github.run_number}}
+
+      - name: Publish Docker Image
+        run: docker push ${{ env.DOCKERHUB_USERNAME }}/users:latest
