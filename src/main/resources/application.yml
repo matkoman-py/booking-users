@@ -30,7 +30,7 @@ spring:
     registration.keycloak:
       authorizationGrantType: client_credentials
       clientId: ${KC_CLIENT_ID:booking-admin}
-      clientSecret: ${KC_CLIENT_SECRET:Hz0GPDPPW0lSAdMj6dbl3nZx14W5m9cf}
+      clientSecret: ${KC_CLIENT_SECRET:**********}
     provider.keycloak.tokenUri: ${KC_BASE_URL:http://localhost:8080}/realms/booking-realm/protocol/openid-connect/token
 server:
   port: '8081'

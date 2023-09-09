@@ -67,6 +67,27 @@ public class KeycloakAdminClient {
         return accessTokenResponse.getToken();
     }
 
+    public void updateUser(String keycloakId, String username, String password) {
+
+        Keycloak keycloak = getKeycloakClientCredentials();
+        RealmResource realmResource = keycloak.realm(realm);
+        UsersResource usersResource = realmResource.users();
+
+        //password
+        CredentialRepresentation passwordCred = new CredentialRepresentation();
+        passwordCred.setTemporary(false);
+        passwordCred.setType(CredentialRepresentation.PASSWORD);
+        passwordCred.setValue(password);
+
+        // Define user
+        UserRepresentation user = new UserRepresentation();
+        user.setEnabled(true);
+        user.setUsername(username);
+        user.setCredentials(List.of(passwordCred));
+
+        usersResource.get(keycloakId).update(user);
+    }
+
     private Keycloak getKeycloakClientCredentials() {
         return KeycloakBuilder.builder()
                 .serverUrl(serverUrl)
