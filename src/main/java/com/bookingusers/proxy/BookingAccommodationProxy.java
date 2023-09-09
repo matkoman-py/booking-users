@@ -13,7 +13,7 @@ public interface BookingAccommodationProxy {
     @GetMapping("api/accommodation/booking/active-reservations-exist/guest/{id}")
     Boolean doActiveBookingsExistForGuest(@PathVariable String id);
 
-    @DeleteMapping("api/accomodation/host/{id}")
+    @DeleteMapping("api/accommodation/host/{id}")
     String deleteAllForHost(@PathVariable String id);
 
 }
