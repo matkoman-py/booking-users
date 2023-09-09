@@ -1,0 +1,46 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus
+  zipkin:
+    tracing:
+      endpoint: ${ZIPKIN_URL:http://localhost:9411}
+  tracing:
+    sampling:
+      probability: '1.0'
+spring:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: 'true'
+  application:
+    name: users-service
+  datasource:
+    password: ${DATABASE_PASSWORD:password}
+    username: ${DATABASE_USERNAME:postgres}
+    url: jdbc:postgresql://${DATABASE_DOMAIN:localhost}:${DATABASE_PORT:4321}/${DATABASE_SCHEMA:users}
+  cloud:
+    config:
+      enabled: 'false'
+  security.oauth2.client:
+    registration.keycloak:
+      authorizationGrantType: client_credentials
+      clientId: ${KC_CLIENT_ID:booking-admin}
+      clientSecret: ${KC_CLIENT_SECRET:Hz0GPDPPW0lSAdMj6dbl3nZx14W5m9cf}
+    provider.keycloak.tokenUri: ${KC_BASE_URL:http://localhost:8080}/realms/booking-realm/protocol/openid-connect/token
+server:
+  port: '8081'
+logging:
+  pattern:
+    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
+
+keycloak:
+  baseUrl: ${KC_BASE_URL:http://localhost:8080}
