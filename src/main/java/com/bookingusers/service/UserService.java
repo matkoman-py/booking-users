@@ -52,11 +52,16 @@ public class UserService {
         return userRepository.findAll().stream().map(UserMapper.INSTANCE::toDto).collect(Collectors.toList());
     }
 
-    public ReadUserDto update(UpdateUserDto userDto, String id) {
+    public ReadUserDto update(UpdateUserDto userDto, String id, String keycloakId) {
         User user = userRepository.findById(id).orElseThrow(() ->
                 new NotFoundException(String.format("Entity with id %s does not exist", id)));
+
         UserMapper.INSTANCE.updateEntityFromDto(userDto, user);
-        return UserMapper.INSTANCE.toDto(userRepository.save(user));
+        ReadUserDto userResponse = UserMapper.INSTANCE.toDto(userRepository.save(user));
+
+        keycloakClient.updateUser(keycloakId, userDto.getUsername(), userDto.getPassword());
+
+        return userResponse;
     }
 
     public void delete(String id) {
