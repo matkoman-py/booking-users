@@ -83,4 +83,8 @@ public class UserService {
 
         return bookingKeycloakUser.getId().getBookingId();
     }
+
+    public String login(String username, String password) {
+        return keycloakClient.login(username, password);
+    }
 }
