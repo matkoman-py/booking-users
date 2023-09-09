@@ -4,6 +4,7 @@ package com.bookingusers.controller;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.bookingusers.model.dto.CreateUserDto;
+import com.bookingusers.model.dto.LoginCredentialsDto;
 import com.bookingusers.model.dto.ReadUserDto;
 import com.bookingusers.model.dto.UpdateUserDto;
 import com.bookingusers.model.entity.User;
@@ -19,6 +20,11 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+
+    @PostMapping("/login")
+    public String login(@RequestBody LoginCredentialsDto loginCredentialsDto) {
+        return userService.login(loginCredentialsDto.getUsername(), loginCredentialsDto.getPassword());
+    }
 
     @PostMapping
     public User create(@RequestBody CreateUserDto userDto) {
