@@ -26,11 +26,13 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/login")
+    @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
     public String login(@RequestBody LoginCredentialsDto loginCredentialsDto) {
         return userService.login(loginCredentialsDto.getUsername(), loginCredentialsDto.getPassword());
     }
 
     @PostMapping
+    @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
     public User create(@RequestBody CreateUserDto userDto) {
         return userService.create(userDto);
     }
