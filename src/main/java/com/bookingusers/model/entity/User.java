@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 @Entity
-@Table(name = "\"user\"")
+@Table(name = "t_user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
