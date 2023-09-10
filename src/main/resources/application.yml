@@ -10,6 +10,10 @@ management:
     sampling:
       probability: '1.0'
 spring:
+  flyway:
+    ignore-missing-migrations: true
+    out-of-order: true
+    baseline-on-migrate: true
   jpa:
     properties:
       hibernate:
